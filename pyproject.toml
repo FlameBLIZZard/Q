@@ -1,0 +1,41 @@
+[project]
+name = "q-local"
+version = "0.0.1"
+description = "Q: a terminal assistant that chats with local LLMs through Ollama, all on your own machine."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Aditya Bhoite" }]
+requires-python = ">=3.12"
+dependencies = [
+    "ollama>=0.4",
+    "httpx>=0.27",
+    "typer>=0.12",
+    "rich>=13",
+]
+
+[project.optional-dependencies]
+pdf = ["pypdf>=4"]
+
+[project.scripts]
+q = "q.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/q"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.ruff]
+line-length = 110
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008"]  # Typer declares options as function defaults on purpose
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
