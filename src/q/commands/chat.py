@@ -6,7 +6,6 @@ from rich.live import Live
 from rich.markdown import Markdown
 from rich.table import Table
 
-
 from q import config, llm
 from q.history import History
 
@@ -15,6 +14,7 @@ console = Console()
 HELP = """[bold]Slash commands[/bold]
   /model NAME   switch model (no NAME: list installed models)
   /clear        start a new conversation
+  /system TEXT  change the system prompt (no TEXT: show it)
   /save FILE    save this conversation as Markdown
   /history      list recent conversations
   /help         show this list
@@ -100,7 +100,7 @@ def chat(
                     console.print(f"[dim]System prompt is now: {arg}[/dim]")
                 else:
                     console.print(f"[dim]System prompt: {messages[0]['content']}[/dim]")
-                
+
             else:
                 console.print(f"[yellow]Unknown command {cmd}. Try /help.[/yellow]")
             continue
