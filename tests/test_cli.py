@@ -52,9 +52,11 @@ def test_chat_clear_starts_fresh(fake_ollama):
     runner.invoke(app, ["chat"], input="one\n/clear\ntwo\n/exit\n")
     assert [m["role"] for m in fake_ollama[1]["messages"]] == ["system", "user"]
 
+
 def test_chat_system_prompt_can_be_changed(fake_ollama):
-    runner.invoke(app, ["chat"], input="/system new prompt\n/exit\n")
+    runner.invoke(app, ["chat"], input="/system new prompt\nhi\n/exit\n")
     assert fake_ollama[0]["messages"][0]["content"] == "new prompt"
+
 
 def test_unknown_slash_command(fake_ollama):
     result = runner.invoke(app, ["chat"], input="/fly\n/exit\n")
